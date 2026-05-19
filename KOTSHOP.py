@@ -319,23 +319,21 @@ def intro_win():
             hist_frame.destroy()
             hist_frame = None
 
-        item_frame = Frame(introwin, bg="#FFFA00", width=442, height=520, relief="solid")
-        vscrll=Scrollbar(item_frame,orient="vertical")
-        vscrll.pack(side="left",fill="y")
-
+        item_frame = Frame(introwin, bg="#FFFA00", width=442, height=519, relief="solid")
+      
         canva_about_2 = Canvas(item_frame, bg="#FFFA00", height=70)
         canva_about_2.pack(fill="both", side="top")
 
         canva_about_2.create_image(208, 38, image=Logo2)
 
-        text_about_2 =Text(item_frame, width=50, height=20, background="#005E05",yscrollcommand=vscrll)
+        text_about_2 =Text(item_frame, width=50, height=20, background="#005E05")
         text_about_2.pack(fill="both", expand=True)
 
 
         tr_frame=text_about_2
-        treeview = ttk.Treeview(text_about_2, columns=columns, show='headings', height=20,yscrollcommand=vscrll)
+        treeview = ttk.Treeview(text_about_2, columns=columns, show='headings', height=20)
         tr=treeview
-        vscrll.config(command=tr.yview)
+        
         tr.tag_configure("highlight", foreground="#005E05", background="#FFF902", font=("Times New Roman", 8, "bold"))
         tr.tag_configure("highlight2", background="#005E05", foreground="#FFF902", font=("Segoe Print", 13, "bold"))
         if current_language=="English":
@@ -343,7 +341,7 @@ def intro_win():
                 tr.heading(c, text=t)
                 tr.column(c, anchor="center")
             for index,init_row in enumerate(Tree_item[current_language]["items"]):
-                if index==5 or index==11:
+                if index==4:
                     tr.insert("", "end", values=init_row, tags=("highlight2",))
                 else:
                     tr.insert("", "end", values=init_row, tags=("highlight",))
@@ -373,7 +371,7 @@ def intro_win():
         for item in tr.get_children():
             tr.delete(item)
         for index, init_row in enumerate(Tree_item[current_language]["items"]):
-            if index == 5 or index==11:
+            if index == 4 or index==11:
                 tr.insert("", "end", values=init_row, tags=("highlight2",))
             else:
                 tr.insert("", "end", values=init_row, tags=("highlight",))
@@ -1814,43 +1812,11 @@ def intro_win():
       canva_about2.pack(fill="both",side="top")
       canva_about2.create_image(340, 38, image=Logo2)
 
-      def show_toggle(e):
-        toggle_label.place(x=290,y=50)
 
-      def hide_toggle(e):
+      def hide_toggle():
         toggle_label.place_forget()
 
-      hover_btn=Button(
-      canva_about2,
-      text="?",
-      font=("Arial",20,"bold"),
-      bg="yellow",
-      fg="green",
-      activebackground="yellow",
-      activeforeground="#cccc00",
-      relief="raised",
-      bd=1,
-      cursor="hand2"
-      )
-
-      hover_btn.place(x=220,y=18,width=45,height=45)
-
-      toggle_label=Label(
-      canva_about2,
-      text="Go click About for further helpful info",
-      font=("Arial",11,"bold"),
-      bg="yellow",
-      fg="green",
-      bd=4,
-      relief="ridge"
-      )
-
-      hover_btn.bind("<Enter>",show_toggle)
-      hover_btn.bind("<Leave>",hide_toggle)
-
       buyer_name=register_name.get()
-
-      canva_about2.create_window(480,38,window=hover_btn,width=45,height=45)
       canva_about2.create_text((603,35),text=f"{buyer_name}\nId_buyer:{Id_buyer}",font=("Segoe UI Black", 14),fill="green")
 
       frame_receipt=Frame(receipt_win,width=270,height=320,background="green")
@@ -1893,11 +1859,27 @@ def intro_win():
       text_receipt2.tag_add("highlight2",2.0)
       text_receipt2.tag_config("highlight2",foreground="#FFF902",font=("Times New Romans",15,"bold"),relief="raised")
       
-      spin=Spinbox(receipt_win,increment=1000,font=("Times New Romans",19,"bold"),relief="groove",foreground="green",from_=1000,to=10**10,buttonbackground="yellow",background="yellow")
-      spin.place(x=70,y=500,width=120,height=70)
+      spin=Entry(receipt_win,font=("Times New Romans",19,"bold"),relief="groove",foreground="green",background="yellow")
+      spin.place(x=83,y=500,width=190,height=70)
 
-      pay_btn= Button(receipt_win, text=f"PAY", bg="#FFD400", font=("Segoe UI Black", 12), fg="#2A6000", width=15,
-                          relief="groove", borderwidth=7,activeforeground="#FFD400",activebackground="#2A6000",command=receipt)
+      toggle_label=Label(
+      receipt_win,
+      font=("Arial",40,"bold"),
+      bg="yellow",
+      fg="green",
+      bd=4,
+      relief="groove"
+      )
+      def toggle_info_pay():
+        if int(spin.get())<Total:
+          toggle_label.config(text="NOT ENOUGH")
+        else:
+          toggle_label.config(text=f"CHANGE:{int(spin.get())-Total}")
+        toggle_label.place(x=205,y=300)
+        frame_receipt2.after(3000,hide_toggle)
+
+      pay_btn= Button(receipt_win,text=f"PAY", bg="#FFD400", font=("Segoe UI Black", 12), fg="#2A6000", width=15,
+                          relief="groove", borderwidth=7,activeforeground="#FFD400",activebackground="#2A6000",command=toggle_info_pay)
       pay_btn.place(x=310,y=500,height=70)
     main_frame_im=Label(main_frame,image=main_frame_back)
     main_frame_im.place(x=0,y=0,relwidth=1,relheight=1)
