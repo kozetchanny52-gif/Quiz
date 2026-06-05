@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+   background: rgb(0, 6, 22);
+   color: antiquewhite;
+   text-align: center;
+}
+.select-instrument{
+    margin-top: 3em;
+    padding:1.2em;
+    width: 27vh;
+    color: rgb(30, 15, 165);
+    border: 0.4em outset rgb(25, 10, 161);
+}
+#search-input{
+    margin-top: 3em;
+    padding:1.1em;
+    width: 30vh;
+    color: rgb(30, 15, 165);
+    border: 0.4em outset rgb(25, 10, 161);
+}
+.card{
+    font-size: 0.7em;
+    padding:0.5rem;
+    border: 0.4em double rgb(255, 217, 0);
+    width:10rem;
+    height: 20vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column
+    ;
+    gap: 3em;
+}
+.card p{
+    font-size: 2em;
+}
+.card p::before{
+    content:"$"
+}
+.box-instruments{
+    width: 110vh;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 5vh;
+    margin-left:60vh;
+}

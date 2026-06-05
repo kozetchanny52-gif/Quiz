@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="MusicFilter.css">
+</head>
+<body>
+    <h1>Students Instruments</h1>
+    <div style="display: flex;justify-content: center;gap: 2em;">
+        <select  class="select-instrument">
+          <option>All</option>
+          <option>Woodwinds</option>
+          <option>Brass</option>
+          <option>Percussion</option>
+        </select>
+        <input type="text" id="search-input" placeholder="Search By name..."></input>
+        <select  class="select-instrument" style="padding: 1em" id="sort-by-price">
+          <option>NONE</option>
+          <option>LOW-HIGH</option>
+          <option>HIGH-LOW</option>
+        </select>
+    </div>
+    <div class="box-instruments"></div>
+    <script src="MusicFilter.js"></script>
+</body>
+</html>
